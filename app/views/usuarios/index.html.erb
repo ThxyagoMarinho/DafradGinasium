@@ -1,0 +1,40 @@
+<%- model_class = Usuario -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:nome) %></th>
+      <th><%= model_class.human_attribute_name(:cpf) %></th>
+      <th><%= model_class.human_attribute_name(:rg) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @usuarios.each do |usuario| %>
+      <tr>
+        <td><%= link_to usuario.id, usuario_path(usuario) %></td>
+        <td><%= usuario.nome %></td>
+        <td><%= usuario.cpf %></td>
+        <td><%= usuario.rg %></td>
+        <td><%= usuario.email %></td>
+        <td><%= usuario.status %></td>
+        <td><%=l usuario.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_usuario_path(usuario), :class => 'btn btn-default btn-xs' %>
+          <%= button_to "delete", usuario, :method=>:delete, :class=>'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_usuario_path,
+            :class => 'btn btn-primary' %>
